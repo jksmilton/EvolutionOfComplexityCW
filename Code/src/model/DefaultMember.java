@@ -21,12 +21,13 @@ public class DefaultMember implements MemberInterface {
 		
 		int dimensions = Array.getLength(genome);
 		int[] usefulValue = new int[dimensions];
+		int dimSize = Array.getLength(genome[0]);
 		
 		for(int i = 0; i < dimensions; i++){
 			
 			int count = 0;
 			
-			for(int j = 0; j < 100; j++){
+			for(int j = 0; j < dimSize; j++){
 				count+= genome[i][j];
 			}
 			
@@ -53,12 +54,14 @@ public class DefaultMember implements MemberInterface {
 	public MemberInterface evolveMember() {
 		
 		int dimensions = Array.getLength(genome);
+		int dimSize = Array.getLength(genome[0]);
+		
 		int[][] newMemberGenome = new int[dimensions][];
 		
 		for(int i =0; i< dimensions; i++){
-			newMemberGenome[i] = new int[100];
+			newMemberGenome[i] = new int[dimSize];
 			
-			for(int j = 0; j < 100; j++){
+			for(int j = 0; j < dimSize; j++){
 				
 				newMemberGenome[i][j] = genome[i][j];
 				

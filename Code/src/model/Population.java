@@ -13,10 +13,13 @@ public class Population {
 	private List<MemberInterface> currentPopulation;
 	private int popNum;
 	
-	public Population(ScoringInterface providedScorer, List<MemberInterface> initialPopulation, int popNumber){
-		scorer = providedScorer;
+	public Population(List<MemberInterface> initialPopulation, int popNumber){
 		currentPopulation = initialPopulation;
 		popNum = popNumber;
+	}
+	
+	public void setScorer(ScoringInterface scorer){
+		this.scorer = scorer;
 	}
 	
 	public Set<MemberInterface> getSample(int sampleSize){
@@ -66,6 +69,10 @@ public class Population {
 		}
 		
 		return newPopulation;
+	}
+	
+	public void setPopulation(List<MemberInterface> newPop){
+		currentPopulation = newPop;
 	}
 	
 	private int fitnessProportionateSelect(int totalScore){
