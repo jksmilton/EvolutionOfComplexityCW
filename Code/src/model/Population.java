@@ -1,5 +1,6 @@
 package model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -12,10 +13,12 @@ public class Population {
 	private ScoringInterface scorer;
 	private List<MemberInterface> currentPopulation;
 	private int popNum;
+	private boolean crossover;
 	
-	public Population(List<MemberInterface> initialPopulation, int popNumber){
+	public Population(List<MemberInterface> initialPopulation, int popNumber, boolean doesCrossover){
 		currentPopulation = initialPopulation;
 		popNum = popNumber;
+		crossover = doesCrossover;
 	}
 	
 	public void setScorer(ScoringInterface scorer){
@@ -65,6 +68,18 @@ public class Population {
 		for(int i =0; i < currentPopulation.size(); i++){
 			int member = fitnessProportionateSelect(totalScore);
 			
+			MemberInterface memberToEvolve = currentPopulation.get(member);
+			
+			if(crossover){
+				int partner;
+				do{
+					partner = fitnessProportionateSelect(totalScore);
+				} while(partner != member);
+				
+				memberToEvolve = crossoverMembers(memberToEvolve, currentPopulation.get(partner));
+				
+			}
+			
 			newPopulation.add(currentPopulation.get(member).evolveMember());			
 		}
 		
@@ -73,6 +88,34 @@ public class Population {
 	
 	public void setPopulation(List<MemberInterface> newPop){
 		currentPopulation = newPop;
+	}
+	
+	private MemberInterface crossoverMembers(MemberInterface parentOne, MemberInterface parentTwo){
+		
+		int[][] genome;
+		int[][] parentOneGenome = parentOne.getMemberGenome();
+		int[][] parentTwoGenome = parentTwo.getMemberGenome();
+		
+		int numDimensions = Array.getLength(parentOneGenome); //doesn't matter which parent is used
+		
+		genome = new int[numDimensions][]; 
+		
+		for(int i = 0; i < numDimensions; i++){
+			
+			if( 0 != i % 2){
+				
+				genome[i] = parentOneGenome[i].clone();
+				
+			} else {
+				
+				genome[i] = parentTwoGenome[i].clone();
+				
+			}
+			
+		}
+		
+		return new DefaultMember(genome);
+		
 	}
 	
 	private int fitnessProportionateSelect(int totalScore){

@@ -15,6 +15,11 @@ public class DefaultMember implements MemberInterface {
 		return subjectiveFitness - arg0.getSubjectiveFitness();
 		
 	}
+	
+	@Override
+	public int[][] getMemberGenome(){
+		return genome;
+	}
 
 	@Override
 	public int[] getMemberValue() {
@@ -77,6 +82,7 @@ public class DefaultMember implements MemberInterface {
 		
 		return new DefaultMember(newMemberGenome);
 	}
+	
 	
 	public DefaultMember(int[][] newGenome){
 		genome = newGenome;

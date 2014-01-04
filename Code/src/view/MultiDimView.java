@@ -49,12 +49,12 @@ public class MultiDimView extends JPanel {
 		graphTwoDim.drawString("0", 60, 120);
 		graphTwoDim.drawString("600", 660, 120);
 		graphTwoDim.drawString("Generation", 360, 120);
-		
+		double popSize = (double) popOne.get(0).size();
 		for(int i = 0; i < 600; i++){
 			
 			int totalSubjectiveFitnessOne=0, totalSubjectiveFitnessTwo=0;
 			
-			for(int j = 0; j < 25; j++){
+			for(int j = 0; j < popSize; j++){
 				
 				int valOne = tallyDimensions(popOne.get(i).get(j));
 				int valTwo = tallyDimensions(popTwo.get(i).get(j));
@@ -72,8 +72,9 @@ public class MultiDimView extends JPanel {
 			
 			double averageFitnessOne, averageFitnessTwo;
 			
-			averageFitnessOne = ((double) totalSubjectiveFitnessOne) / 25.0;
-			averageFitnessTwo = ((double) totalSubjectiveFitnessTwo) / 25.0;
+			
+			averageFitnessOne = ((double) totalSubjectiveFitnessOne) / popSize;
+			averageFitnessTwo = ((double) totalSubjectiveFitnessTwo) / popSize;
 			
 			averageFitnessOne = averageFitnessOne / sampleSize; //put between 0 and 1;
 			averageFitnessTwo = averageFitnessTwo / sampleSize;
