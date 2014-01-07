@@ -13,7 +13,7 @@ import view.OneDimGraphPanel;
 
 public class GameRunner {
 
-	private final static int SAMPLE_SIZE = 150, POP_SIZE = 250;
+	private final static int SAMPLE_SIZE = 15, POP_SIZE = 25;
 	
 	public static void main(String[] args) {
 		

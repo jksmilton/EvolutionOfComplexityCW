@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -49,11 +50,17 @@ public class MultiDimView extends JPanel {
 		graphTwoDim.drawString("0", 60, 120);
 		graphTwoDim.drawString("600", 660, 120);
 		graphTwoDim.drawString("Generation", 360, 120);
+		
+		graphTwoDim.drawLine(60, 250, 60, 300);
+		graphTwoDim.drawLine(60, 300, 660, 300);
+		
 		double popSize = (double) popOne.get(0).size();
+		int[] highScoringSameDimCount = new int[600], numberHighScoring = new int[600];
+		
 		for(int i = 0; i < 600; i++){
-			
+			HashMap<Integer, Integer> count = setUpMap();
 			int totalSubjectiveFitnessOne=0, totalSubjectiveFitnessTwo=0;
-			
+			numberHighScoring[i] = 0;
 			for(int j = 0; j < popSize; j++){
 				
 				int valOne = tallyDimensions(popOne.get(i).get(j));
@@ -67,6 +74,11 @@ public class MultiDimView extends JPanel {
 				
 				totalSubjectiveFitnessOne += popOne.get(i).get(j).getSubjectiveFitness() - 1; //correct for scoring 'fix'		
 				totalSubjectiveFitnessTwo += popTwo.get(i).get(j).getSubjectiveFitness() - 1;
+				
+				if(popOne.get(i).get(j).getSubjectiveFitness() - 1 >= Math.round(sampleSize + 1 / 4)){
+					numberHighScoring[i]++;
+					count.put(getBestDimension(popOne.get(i).get(j)), count.get(getBestDimension(popOne.get(i).get(j))) + 1);
+				}
 				
 			}
 			
@@ -90,8 +102,59 @@ public class MultiDimView extends JPanel {
 			graphTwoDim.setColor(Color.RED);
 			graphTwoDim.fillRect(59 + i, 198 - offsetTwo, 4, 4);
 			
+			highScoringSameDimCount[i] = getBestCount(count);
+			
+		}
+		double modifier = 50 / popSize;
+		for(int i = 0; i < 599; i++){
+			
+			graphTwoDim.setColor(Color.BLUE);	
+			graphTwoDim.drawLine(61 + i, (int) (300 - Math.round(numberHighScoring[i] * modifier)), 62 + i, (int) (300 - Math.round(numberHighScoring[i + 1] * modifier)));
+			graphTwoDim.setColor(Color.RED);
+			graphTwoDim.drawLine(61 + i, (int) (300 - Math.round(highScoringSameDimCount[i] * modifier)), 62 + i, (int) (300 - Math.round(highScoringSameDimCount[i + 1] * modifier)));
 		}
 		
+	}
+	
+	private HashMap<Integer, Integer> setUpMap(){
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		
+		for(int i = 0; i<= 10; i++){
+			map.put(i, 0);
+		}
+		
+		return map;
+	}
+	
+	private int getBestCount(HashMap<Integer, Integer> counts){
+		
+		int currentBest= -1;
+		
+		for(int i = 0; i < 10; i++){
+			if(counts.get(i) > currentBest){
+				currentBest = counts.get(i);
+			}
+		}
+		//System.out.println("best count: " + currentBest);
+		//return currentBest;
+		return counts.get(10);
+	}
+	
+	private int getBestDimension(MemberInterface member){
+		int currentBestDim = -1, currentBest= -1;
+		
+		int[] values = member.getMemberValue();
+		
+		for(int i = 0; i < 10; i++){
+			if(values[i] > currentBest){
+				currentBest = values[i];
+				currentBestDim = i;
+			}
+		}
+		
+		System.out.println(currentBest);
+		
+		return currentBest;
 	}
 	
 	private int tallyDimensions(MemberInterface member){

@@ -40,7 +40,7 @@ public class GreatestGapScorer implements ScoringInterface {
 				
 			}
 			
-			if(member.getMemberValue()[dimensionPicked] >= m.getMemberValue()[dimensionPicked]){
+			if(member.getMemberValue()[dimensionPicked] > m.getMemberValue()[dimensionPicked]){
 				score++;
 			}
 			

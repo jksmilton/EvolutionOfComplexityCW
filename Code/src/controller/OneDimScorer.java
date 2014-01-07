@@ -29,7 +29,7 @@ public class OneDimScorer implements ScoringInterface {
 		int score = 1;
 		
 		for(MemberInterface m : sample){
-			if(m.getMemberValue()[0] <= member.getMemberValue()[0]){
+			if(m.getMemberValue()[0] < member.getMemberValue()[0]){
 				score++;
 			}
 		}

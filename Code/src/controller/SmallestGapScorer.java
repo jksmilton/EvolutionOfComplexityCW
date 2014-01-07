@@ -33,7 +33,7 @@ public class SmallestGapScorer implements ScoringInterface {
 			for(int i = 0; i < 10; i++){
 				int gap = Math.abs(m.getMemberValue()[i] - member.getMemberValue()[i]);
 				
-				if(gap <= smallestGap){
+				if(gap < smallestGap){
 					smallestGap = gap;
 					dimensionPicked = i;
 				}

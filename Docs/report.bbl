@@ -1,0 +1,20 @@
+\begin{thebibliography}{1}
+
+\bibitem{forrest1993}
+Stephanie Forrest and Melanie Mitchell.
+\newblock Relative building-block fitness and the building-block hypothesis.
+\newblock {\em Ann Arbor}, 1001:48109, 1993.
+
+\bibitem{watson2007}
+Richard~A Watson and Thomas Jansen.
+\newblock A building-block royal road where crossover is provably essential.
+\newblock In {\em Proceedings of the 9th annual conference on Genetic and
+  evolutionary computation}, pages 1452--1459. ACM, 2007.
+
+\bibitem{watson2001}
+Richard~A Watson and Jordan~B Pollack.
+\newblock Coevolutionary dynamics in a minimal substrate.
+\newblock In {\em Proceedings of the Genetic and Evolutionary Computation
+  Conference (GECCO 2001)}, pages 702--709. Morgan Kaufmann, 2001.
+
+\end{thebibliography}
